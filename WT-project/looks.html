@@ -1,0 +1,248 @@
+<html>
+
+<style>
+	.container {
+		width : 100%;
+		height : 800px;
+	}
+
+	#mainBox {
+		width: 80%;
+		margin-left: 10%;
+		height: 100px;
+		margin-top: 50px;
+		overflow: hidden;
+
+		border-style: solid;
+		border-width: 2px ;
+		border-color: purple;
+	}
+	.beatBox {
+		float: left;
+		overflow: hidden;
+		height: 100%;
+		width: 12.5%;
+
+		border: 1px solid red;
+		margin: -1px;
+	}
+	.lightBar {
+		width: 100%;
+		height: 30%;
+
+		background-color: beige;
+
+		text-align: center;
+		font-family: Verdana;
+		vertical-align: middle;
+		line-height: 27px;
+	}
+	.beater {
+		width: 100%;
+		height: 70%;
+
+		border-top: 1px solid black;
+		margin-top: -1px;
+
+		background-color: #e6e6fa;
+		cursor: hand;
+	}
+	.beater>div {
+		font-family: Verdana;
+		width: 50%;
+		height: auto;
+		text-align: center;
+		float: left;
+	}
+
+	.lightUp {
+		background-color: yellow;
+	}
+
+
+	#selectionBox {
+		margin-left: 30%;
+		margin-top: 70px;
+		width: 40%;
+		height: 100px;
+	}
+	.noteButton {
+		width: 70px;
+		height: 70px;
+		background-color: #ffc96d;
+		border: 2px solid red;
+		border-radius: 5px;
+		float: left;
+		margin: 30px;
+
+		font-family: Verdana;
+		text-align: center;
+		font-size: 30px;
+		vertical-align: middle;
+		line-height: 67px;
+
+		cursor: hand;
+	}
+	.adding {
+		background-color: grey;
+	}
+
+
+</style>
+
+<body>
+	<div class="container">
+		<div id="mainBox">
+			<div id="beatBox1" class="beatBox">
+				<div id="lightBar1" class="lightBar lightUp">
+					1
+				</div>
+				<div id="beater1" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox2" class="beatBox">
+				<div id="lightBar2" class="lightBar">
+					2
+				</div>
+				<div id="beater2" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox3" class="beatBox">
+				<div id="lightBar3" class="lightBar">
+					3
+				</div>
+				<div id="beater3" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox4" class="beatBox">
+				<div id="lightBar4" class="lightBar">
+					4
+				</div>
+				<div id="beater4" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox5" class="beatBox">
+				<div id="lightBar5" class="lightBar">
+					5
+				</div>
+				<div id="beater5" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox6" class="beatBox">
+				<div id="lightBar6" class="lightBar">
+					6
+				</div>
+				<div id="beater6" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox7" class="beatBox">
+				<div id="lightBar7" class="lightBar">
+					7
+				</div>
+				<div id="beater7" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+			<div id="beatBox8" class="beatBox">
+				<div id="lightBar8" class="lightBar">
+					8
+				</div>
+				<div id="beater8" class="beater" onclick="beaterClick(event);"></div>
+			</div>
+		</div>
+
+
+
+		<div id="selectionBox">
+			<div id="note1"  class="noteButton" onclick="noteClick(event);">C</div>
+			<div id="note2"  class="noteButton" onclick="noteClick(event);">C#</div>
+			<div id="note3"  class="noteButton" onclick="noteClick(event);">D</div>
+			<div id="note4"  class="noteButton" onclick="noteClick(event);">D#</div>
+			<div id="note5"  class="noteButton" onclick="noteClick(event);">E</div>
+			<div id="note6"  class="noteButton" onclick="noteClick(event);">F</div>
+			<div id="note7"  class="noteButton" onclick="noteClick(event);">F#</div>
+			<div id="note8"  class="noteButton" onclick="noteClick(event);">G</div>
+			<div id="note9"  class="noteButton" onclick="noteClick(event);">G#</div>
+			<div id="note10" class="noteButton" onclick="noteClick(event);">A</div>
+			<div id="note11" class="noteButton" onclick="noteClick(event);">A#</div>
+			<div id="note12" class="noteButton" onclick="noteClick(event);">B</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="main2.js"></script>
+
+	<script>
+	addListenersForHover();
+		// To move light :
+		var i = 1;
+		function testFunc() {
+			document.getElementById('lightBar'+i).className = "lightBar";
+			i = (i)%8 + 1;
+			document.getElementById('lightBar'+i).className+=" lightUp";
+		}
+		setInterval(testFunc, 600);
+
+		// For reference (also used to add to beat box) :
+		var noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+		// Note box click
+		var addingNote = -1;			// global variable to know which note is being added.
+
+		function noteClick(e) {
+			id = e.target.id;
+			noteID = parseInt(id.slice(id.search(/\d/))) - 1;		// noteID is from 0 - 11.
+			e.target.className += " adding";
+			addingNote = noteID;
+		}
+
+
+		// Creating 2d array to hold notes for 8 beats:
+		// You can use this to play the sounds as well.
+		var notes = new Array(8);
+		for (var i = 0; i < 8; i++) {
+		  	notes[i] = new Array();
+		}
+
+		// Beat box click :
+		function beaterClick(e) {
+			id = e.target.id;
+			beatID = parseInt(id.slice(id.search(/\d/))) - 1;		// beatID is from 0 - 7.
+
+			if (addingNote < 0) {
+				alert("Click on a note and then click on a beat to add the note to that beat!");
+			}
+			else {
+				// Add note to array, if it is not already added.
+				if (notes[beatID].indexOf(addingNote) < 0) {
+					notes[beatID].push(addingNote);
+					e.target.innerHTML += "<div>"+noteNames[addingNote]+"</div>";
+				}
+				console.log(notes);
+
+				// Make note color normal again.
+				document.getElementById("note"+(addingNote+1)).className = "noteButton";
+
+				// Reset global var
+				addingNote = -1;
+
+			}
+		}
+
+		function playNote(e)
+		{
+			id = e.target.id;
+			noteID = parseInt(id.slice(id.search(/\d/))) - 1;
+			play(noteID);
+		}
+
+		function pauseNote(e)
+		{
+			id = e.target.id;
+			noteID = parseInt(id.slice(id.search(/\d/))) - 1;
+			pauseit(noteID);
+		}
+		function addListenersForHover()
+		{
+			var buts=document.getElementsByClassName('noteButton');
+		    for (var i =1; i <13; i++)
+		    {
+		  		document.getElementById('note'+i).addEventListener('mouseover',playNote);
+		  		document.getElementById('note'+i).addEventListener('mouseout',pauseNote);
+		    }
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+#note1, #note3, #note5, #note6, #note8, #note10, #note12 {
+  background-color: white;
+}
+#note2, #note4, #note7, #note9, #note11 {
+  background-color: black;
+  color: white;
+}
