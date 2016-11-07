@@ -15,7 +15,10 @@ class CreateSoundLikes extends Migration
     {
         Schema::create("sound_likes", function(Blueprint $table){
             $table->integer("userId")->length(10)->unsigned();
-            $table->increments("soundId");
+            $table->integer("soundId")->length(10)->unsigned();
+
+            $table->primary(['userId', 'soundId']);
+
             $table->timestamps();
             
             $table->foreign("userId")->references("userId")

@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    
     public $primaryKey = "userId";
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -30,5 +32,23 @@ class User extends Authenticatable
     public function sound()
     {
         return $this->hasMany("App\Sound", "userId", "userId");
+    }
+
+    public function favourites()
+    {
+        return $this->belongsToMany(Sound::class, 'sound_likes', 'userId', 'soundId')
+            ->withTimestamps();
+    }
+
+    public function hasFavourited($soundId)
+    {
+        $result = $this->favourites()->find($soundId);
+        
+        if(is_null($result))
+        {
+            return false;
+        }
+        
+        return true;
     }
 }
