@@ -18,11 +18,11 @@ class CreateSoundLikes extends Migration
             $table->increments("soundId");
             $table->timestamps();
             
-            // $table->foreign("userId")->references("userId")
-            //     ->on("users")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("userId")->references("userId")
+                ->on("users")->onDelete("cascade")->onUpdate("cascade");
             
-            // $table->foreign("soundId")->references("soundId")
-            //     ->on("sounds")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("soundId")->references("soundId")
+                ->on("sounds")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

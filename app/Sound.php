@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Sound extends Model
 {
     protected $table = "sounds";
-    protected $primaryKey = "soundId";
+    public $primaryKey = "soundId";
 }
+
+
+?>

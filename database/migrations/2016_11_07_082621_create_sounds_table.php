@@ -18,9 +18,9 @@ class CreateSoundsTable extends Migration
         	$table->increments("soundId");
         	$table->timestamps();
         	$table->text("data");
-        	$table->integer("upCount")->length(10)->unsigned();
-        	// $table->foreign("userId")->references("userId")
-        	// 	->on("users")->onDelete("cascade")->onUpdate("cascade");
+        	$table->integer("upCount")->length(10)->unsigned()->default(0);
+        	$table->foreign("userId")->references("userId")
+        		->on("users")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 
