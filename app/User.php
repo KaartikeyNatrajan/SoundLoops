@@ -29,7 +29,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function sound()
+    public function sounds()
     {
         return $this->hasMany("App\Sound", "userId", "userId");
     }

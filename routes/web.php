@@ -17,6 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('home', 'HomeController@index');
 
-Route::get("favourites", 'HomeController@getFavourites');
+Route::get('favourites', 'HomeController@getFavourites');
+
+Route::get('my-sounds', 'HomeController@getUserSounds');
+
+Route::get('library', 'HomeController@getLibrary');
+
+Route::get('api/favourites', 'HomeController@apiGetFavourites');
+
+Route::get('api/my-sounds', 'HomeController@apiGetUserSounds');
+
+Route::get('api/library', 'HomeController@apiGetLibrary');

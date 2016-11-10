@@ -1,11 +1,37 @@
 *
 {
 	font-family: 'Jura', monospace;
-	
 }
+
 body
 {
 	background-image: url('../images/main.jpg');
+	color: white !important;
+}
+
+.play-button
+{
+	display: inline;
+	border-radius: 50%;
+	border: 2px solid white;
+	background: grey;
+	height: 3em;
+	width: 3em;
+}
+
+.player-window
+{
+	border : 1px solid white;
+	border-radius: 3px;
+	padding: 10px;
+	margin: 10px;
+}
+
+.like-bar
+{
+	height: 20px;
+	background: grey;
+	border: 1px solid grey;
 }
 
 .soundArea

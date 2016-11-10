@@ -3,6 +3,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/keys.css') }}">
 @endsection
 @section('content')
+	<example></example>
 	<progress id="timer" value="0"></progress>
 	<br><br><br>
 	<div class="wrapper">
