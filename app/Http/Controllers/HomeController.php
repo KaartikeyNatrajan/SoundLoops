@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        Auth::login(\App\User::find(1));
+        // Auth::login(\App\User::find(1));
         $this->middleware('auth', ['except' => 'getLibrary']);
     }
 
