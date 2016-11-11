@@ -13,6 +13,20 @@ class Sound extends Model
     {
     	return $this->belongsTo('App\User', 'userId', 'userId');
     }
+
+    public function incrementLikeCount()
+    {
+    	$this->upCount += 1;
+    	$this->save();
+    	return true;
+    }
+
+    public function decrementLikeCount()
+    {
+    	$this->upCount -= 1;
+    	$this->save();
+    	return true;
+    }
 }
 
 

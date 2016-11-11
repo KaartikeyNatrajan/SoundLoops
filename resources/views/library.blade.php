@@ -16,10 +16,31 @@
 @section('scripts')
 
 <script type="text/javascript">
+
 	Vue.component('my-player', {
+		
 		template: '#player',
+		
 		props: ['soundInfo'],
 
+		data: function() {
+			return {
+				upVotes: this.soundInfo.upCount
+			}
+		},
+
+		methods: {
+			toggleLike: function()
+			{
+				var id = 1;
+				vm = this;
+				this.$http.put('api/library/' + id, {'_token': Laravel.csrfToken })
+				.then((response) => {
+					vm.upVotes += 1;
+
+				});
+			}
+		}
 
 	});
 
@@ -27,14 +48,13 @@
 		el: '#app',
 		data: {
 			message: 'Hello Vue!',
-			page: 1,
 			sounds : []
-
 		},
 		created: function() {
 			vm = this;
 			this.$http.get('api/library').then((response) => {
-				vm.sounds = JSON.parse(response.body);
+				console.log(response.body.data);
+				vm.sounds = response.body.data.data;
 			});
 		}
 	})

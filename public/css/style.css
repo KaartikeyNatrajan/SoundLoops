@@ -9,6 +9,17 @@ body
 	color: white !important;
 }
 
+.navbar-brand
+{
+	font-size: 2em !important;
+	color: white !important;
+}
+
+.navbar-default
+{
+	color: white !important;
+}
+
 .play-button
 {
 	display: inline;

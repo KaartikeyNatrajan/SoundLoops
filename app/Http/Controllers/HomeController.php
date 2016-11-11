@@ -40,8 +40,8 @@ class HomeController extends Controller
         $favourites = $user->favourites;
 
         return response()->json([
-            $favourites
-        ]);    
+            'data' => $favourites
+        ]);
     }
 
     public function getUserSounds()
@@ -56,7 +56,7 @@ class HomeController extends Controller
         $sounds = $user->sounds;
 
         return response()->json([
-            $sounds
+            'data' => $sounds
         ]);
     }
 
@@ -66,8 +66,50 @@ class HomeController extends Controller
     }
     public function apiGetLibrary(Request $request)
     {
-        $sounds = \App\Sound::with('user')->get();
+        $sounds = \App\Sound::with('user')->paginate(10);
 
-        return $sounds->toJson();
+        $favourites = Auth::user()->favourites();
+
+        // foreach ($sounds as $sound)
+        // {
+        //     if(array_search($sound->soundId, $favourites))
+        //     {
+        //         $sound->isLiked = 1;
+        //         continue;
+        //     }
+        //     $sound->isLiked = 0;
+        // }
+
+        return response()->json([
+            'data' => $sounds
+        ]);
+    }
+
+    public function apiToggleLike($soundId)
+    {
+        $user = Auth::user();
+        $sound = \App\Sound::find($soundId);
+
+        if(is_null($sound))
+        {
+            return response()->json([
+                'data' => 'sound not found'
+            ], 422);
+        }
+
+        if($user->hasFavourited($soundId))
+        {
+            $user->favourites()->detach($sound);
+            $sound->decrementLikeCount();
+        }
+        else
+        {
+            $user->favourites()->attach($sound);
+            $sound->incrementLikeCount();
+        }
+
+        return response()->json([
+            'data' => 'Successfully liked'
+        ], 200);
     }
 }

@@ -30,3 +30,5 @@ Route::get('api/favourites', 'HomeController@apiGetFavourites');
 Route::get('api/my-sounds', 'HomeController@apiGetUserSounds');
 
 Route::get('api/library', 'HomeController@apiGetLibrary');
+
+Route::put('api/library/{soundId}', 'HomeController@apiToggleLike');
