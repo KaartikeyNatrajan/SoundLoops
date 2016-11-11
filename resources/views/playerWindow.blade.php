@@ -12,8 +12,8 @@
 		<p>@{{ soundInfo.data }}</p>
 
 		<div class="like-bar">
+			<button class="likeButton" @click="toggleLike">Like</button>
 			<span>@{{ upVotes }}</span>
-			<button @click="toggleLike">Like</button>
 		</div>
 	</div>
 </template>
