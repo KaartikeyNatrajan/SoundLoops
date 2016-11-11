@@ -40,9 +40,8 @@ body
 
 .like-bar
 {
-	height: 20px;
-	background: grey;
-	border: 1px solid grey;
+	/*background: grey;*/
+	/*border: 1px solid grey;*/
 }
 
 .soundArea

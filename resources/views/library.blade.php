@@ -25,7 +25,8 @@
 
 		data: function() {
 			return {
-				upVotes: this.soundInfo.upCount
+				upVotes: this.soundInfo.upCount,
+				hasLiked: this.soundInfo.hasLiked
 			}
 		},
 
@@ -36,7 +37,15 @@
 				vm = this;
 				this.$http.put('api/library/' + id, {'_token': Laravel.csrfToken })
 				.then((response) => {
-					vm.upVotes += 1;
+					if(vm.hasLiked)
+					{
+						vm.upVotes -= 1;
+					}
+					else
+					{
+						vm.upVotes += 1;
+					}
+					vm.hasLiked = !vm.hasLiked;
 
 				});
 			}

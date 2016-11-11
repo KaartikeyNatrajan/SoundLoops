@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Jura' rel='stylesheet' type='text/css'>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Jura' rel='stylesheet' type='text/css'> -->
     @yield('css')
 
     <!-- Scripts -->
@@ -32,10 +32,10 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.0.3/vue-resource.js"></script>
+    <script src="/js/jquery-3.1.1.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/vue-resources.js"></script>
    
     @yield('scripts')
 
