@@ -68,17 +68,19 @@ class HomeController extends Controller
     {
         $sounds = \App\Sound::with('user')->paginate(10);
 
-        $favourites = Auth::user()->favourites();
+        $favourites = Auth::user()->favourites->pluck('soundId')->all();
 
-        // foreach ($sounds as $sound)
-        // {
-        //     if(array_search($sound->soundId, $favourites))
-        //     {
-        //         $sound->isLiked = 1;
-        //         continue;
-        //     }
-        //     $sound->isLiked = 0;
-        // }
+        foreach ($sounds as &$sound)
+        {
+            if(array_search($sound->soundId, $favourites) !== false)
+            {
+                $sound->hasLiked = true;
+            }
+            else
+            {
+                $sound->hasLiked = false;
+            }
+        }
 
         return response()->json([
             'data' => $sounds
