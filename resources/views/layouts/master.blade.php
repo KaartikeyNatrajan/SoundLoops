@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <!-- <link href='https://fonts.googleapis.com/css?family=Jura' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     @yield('css')
 
     <!-- Scripts -->
