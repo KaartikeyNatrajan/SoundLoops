@@ -45,7 +45,7 @@ function makeJson()
 	{ 
 		$object = new stdClass;
 		
-		$object->track = rand(1, 5);
+		$object->track = rand(0, 1);
 		
 		$object->startTime = $startTime;
 		$object->endTime = $object->startTime + rand(1, 3) * 4.8;
@@ -62,7 +62,7 @@ function makeJson()
 	{ 
 		$object = new stdClass;
 		
-		$object->track = rand(1, 5);
+		$object->track = rand(2, 3);
 		
 		$object->startTime = $startTime;
 		$object->endTime = $object->startTime + rand(1, 3) * 4.8;
