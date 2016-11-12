@@ -19,14 +19,18 @@
 			<h1>Bass</h1>
 		</div>
 	</div>
-	<div class="wrapper text-center">
-		@include('keys')
-	</div>
+	<div id="record">
+		<div class="wrapper text-center">
+			<button class="btn btn-primary" @click="toggleInstrumentDown"> < </button>
+			@include('keys')
+			<button class="btn btn-primary" @click="toggleInstrumentUp"> > </button>
+		</div>
 
-	<div class="wrapper" id="record">
-		<button v-if="!recording" class="btn btn-lg" style="background-color:red" @click="toggle">Record</button>
-		<button v-else class="btn btn-lg" style="background-color:yellow" @click="toggle">Stop</button>
-		<button v-if="completed" class="btn btn-lg btn-success" @click="saveSound">Save</button>
+		<div class="wrapper">
+			<button v-if="!recording" class="btn btn-lg" style="background-color:red" @click="toggle">Record</button>
+			<button v-else class="btn btn-lg" style="background-color:yellow" @click="toggle">Stop</button>
+			<button v-if="completed" class="btn btn-lg btn-success" @click="saveSound">Save</button>
+		</div>
 	</div>
 @endsection
 @section('scripts')
@@ -38,7 +42,24 @@
 		data: {
 			recording: false,
 			jsonData : null,
-			completed : false
+			completed : false,
+			instrument : 0,
+			keymap : {
+				'A' : 4,
+				'S' : 5,
+				'D' : 6,
+				'F' : 7,
+				'G' : 8,
+				'H' : 9,
+				'J' : 10,
+				'K' : 11,
+				'L' : 12,
+				'Z' : 13,
+				'X' : 14,
+				'C' : 15,
+				'V' : 16,
+			},
+			alreadyPlaying: []
 		},
 		methods: {
 			toggle: function() {
@@ -65,6 +86,38 @@
 					window.location.href = "/";
 							
 				});
+			},
+			toggleInstrumentUp: function() {
+				this.instrument += 1;
+			},
+
+			toggleInstrumentDown: function() {
+				if(this.instrument > 0)
+				{
+					this.instrument -= 1;
+				}
+			},
+			playKey: function(event)
+			{
+				var key = event.keyCode;
+				console.log(key);
+				var char = String.fromCharCode(key);
+				console.log(char);
+				if(this.alreadyPlaying.indexOf(char) < 0)
+				{
+					play(this.keymap[char] + ( 13 * this.instrument ) );
+					this.alreadyPlaying.push(char);
+				}
+				
+			},
+			pauseKey: function(event)
+			{
+				var key = event.keyCode;
+				console.log(key);
+				var char = String.fromCharCode(key);
+				console.log(char);
+				pauseit(this.keymap[char] + ( 13 * this.instrument ) );
+				this.alreadyPlaying.splice(this.alreadyPlaying.indexOf(char),1);
 			}
 		}
 		
@@ -78,41 +131,8 @@
 		play(noteId);
 	}
 
-	document.body.addEventListener("keydown", playKey);
-	document.body.addEventListener("keyup", pauseKey);
-	var current = null;
-	keymap = {
-		'A' : 4,
-		'S' : 5,
-		'D' : 6,
-		'F' : 7,
-		'G' : 8,
-		'H' : 9,
-		'J' : 10
-	}
-	var alreadyPlaying = [];
-	function playKey(event)
-	{
-		var key = event.keyCode;
-		console.log(key);
-		var char = String.fromCharCode(key);
-		console.log(char);
-		if(alreadyPlaying.indexOf(char) < 0)
-		{
-			play(keymap[char]);
-			current = char;
-			alreadyPlaying.push(char);
-		}
-		
-	}
-	function pauseKey(event)
-	{
-		var key = event.keyCode;
-		console.log(key);
-		var char = String.fromCharCode(key);
-		console.log(char);
-		pauseit(keymap[char]);
-		alreadyPlaying.splice(alreadyPlaying.indexOf(char),1);
-	}
+	document.body.addEventListener("keydown", recorder.playKey);
+	document.body.addEventListener("keyup", recorder.pauseKey);
+	
 	</script>
 @endsection
