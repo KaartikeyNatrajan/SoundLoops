@@ -40,8 +40,31 @@ body
 
 .like-bar
 {
-	/*background: grey;*/
-	/*border: 1px solid grey;*/
+	height: 22px;
+	background: grey;
+	border: 1px solid grey;
+	border-radius: 3px;
+}
+
+.likeButton
+{
+	height: 20px;
+	background-color: #084d72;
+	border: none;
+	border-radius: 3px;
+}
+
+@-webkit-keyframes bluePulse {
+	from { background-color: #084d72; -webkit-box-shadow: 0 0 9px #333; }
+	50% { background-color: #1ec3ff; -webkit-box-shadow: 0 0 18px #1ec3ff; }
+	to { background-color: #084d72; -webkit-box-shadow: 0 0 9px #333; }
+}
+
+.likeButton:hover
+{
+	-webkit-animation-name: bluePulse;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
 }
 
 .navbar-nav > li > a
