@@ -1,6 +1,6 @@
 *
 {
-	font-family: 'Jura', monospace;
+	font-family: 'Lobster', monospace;
 }
 
 body
@@ -25,9 +25,10 @@ body
 	display: inline;
 	border-radius: 50%;
 	border: 2px solid white;
-	background: grey;
+	background: #084d72;
 	height: 3em;
 	width: 3em;
+	outline: none;
 }
 
 .player-window
@@ -41,8 +42,7 @@ body
 .like-bar
 {
 	height: 22px;
-	background: grey;
-	border: 1px solid grey;
+	background: none;
 	border-radius: 3px;
 }
 
@@ -133,7 +133,7 @@ td.sound
 h1
 {
 	color: white;
-	font-family: 'Jura',verdana;
+	/*font-family: 'Jura',verdana;*/
 }
 .header
 {

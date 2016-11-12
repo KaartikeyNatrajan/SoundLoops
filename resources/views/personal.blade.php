@@ -13,12 +13,11 @@
 @endsection
 @section('scripts')
 
+<script type="text/javascript" src="{{ asset('js/my-player.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/main2.js') }}"></script>
+
 	<script type="text/javascript">
 		
-		Vue.component('my-player', {
-			template: '#player',
-			props: ['soundInfo'],
-		});
 
 		var app = new Vue({
 			el: '#app',
