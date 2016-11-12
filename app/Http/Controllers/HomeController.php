@@ -124,5 +124,9 @@ class HomeController extends Controller
         $sound->data = $request->jsonData;
         $sound->save();
 
+        return response()->json([
+            'data' => 'Successfully saved'
+        ], 200);
+
     }
 }

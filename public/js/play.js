@@ -20,6 +20,8 @@ for (var i = 0; i < 1; i++)
 		cell.addEventListener('click', bassHandle);
 		cell.id = idnum + 2;
 		cell.setAttribute("class", "sound");
+
+		idnum++;
 	}
 }
 

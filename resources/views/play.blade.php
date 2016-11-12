@@ -61,7 +61,9 @@
 					'jsonData': vm.jsonData
 				}).then((response) => {
 					console.log(response);
-
+					alert("successfully saved");
+					window.location.href = "/";
+							
 				});
 			}
 		}
