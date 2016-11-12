@@ -100,9 +100,7 @@
 			playKey: function(event)
 			{
 				var key = event.keyCode;
-				console.log(key);
 				var char = String.fromCharCode(key);
-				console.log(char);
 				if(this.alreadyPlaying.indexOf(char) < 0)
 				{
 					play(this.keymap[char] + ( 13 * this.instrument ) );
@@ -113,9 +111,7 @@
 			pauseKey: function(event)
 			{
 				var key = event.keyCode;
-				console.log(key);
 				var char = String.fromCharCode(key);
-				console.log(char);
 				pauseit(this.keymap[char] + ( 13 * this.instrument ) );
 				this.alreadyPlaying.splice(this.alreadyPlaying.indexOf(char),1);
 			}
@@ -127,7 +123,6 @@
 	{
 		// console.log(noteId);
 		noteId = parseInt(note.id.match(/\d+/)[0]) + 3;
-		console.log(noteId);
 		play(noteId);
 	}
 
