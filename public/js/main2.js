@@ -60,7 +60,19 @@ function init() {
     '../sounds/RockDrums.wav',
     '../sounds/Drums2.wav',
     '../sounds/Bass1.wav',
-    '../sounds/Bass2.wav'
+    '../sounds/Bass2.wav',
+    '../sounds/E.wav',
+    '../sounds/F.wav',
+    // "../sounds/F-sharp-synth.wav",
+    // '../sounds/G-synth.wav',
+    // '../sounds/G-sharp-synth.wav',
+    // '../sounds/A-synth.wav',
+    // '../sounds/A-sharp-synth.wav',
+    // '../sounds/B-synth.wav',
+    // '../sounds/A-sharp.wav',
+    // '../sounds/B.wav',
+    // '../sounds/C.wav',
+    // '../sounds/C-sharp.wav',
     ],
     finishedLoading
     );
@@ -69,7 +81,7 @@ function init() {
 }
 var source=[];
 function finishedLoading(bufferList) {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 6; i++) {
 
         gainNode = context.createGain();
         source[i]=context.createBufferSource();

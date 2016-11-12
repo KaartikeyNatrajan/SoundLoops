@@ -68,6 +68,51 @@
 			}
 		}
 		
-	})
+	});
+
+	function noteClick(note)
+	{
+		// console.log(noteId);
+		noteId = parseInt(note.id.match(/\d+/)[0]) + 3;
+		console.log(noteId);
+		play(noteId);
+	}
+
+	document.body.addEventListener("keydown", playKey);
+	document.body.addEventListener("keyup", pauseKey);
+	var current = null;
+	keymap = {
+		'A' : 4,
+		'S' : 5,
+		'D' : 6,
+		'F' : 7,
+		'G' : 8,
+		'H' : 9,
+		'J' : 10
+	}
+	var alreadyPlaying = [];
+	function playKey(event)
+	{
+		var key = event.keyCode;
+		console.log(key);
+		var char = String.fromCharCode(key);
+		console.log(char);
+		if(alreadyPlaying.indexOf(char) < 0)
+		{
+			play(keymap[char]);
+			current = char;
+			alreadyPlaying.push(char);
+		}
+		
+	}
+	function pauseKey(event)
+	{
+		var key = event.keyCode;
+		console.log(key);
+		var char = String.fromCharCode(key);
+		console.log(char);
+		pauseit(keymap[char]);
+		alreadyPlaying.splice(alreadyPlaying.indexOf(char),1);
+	}
 	</script>
 @endsection
