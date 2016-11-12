@@ -1,132 +1,167 @@
-var idnum=0;
-	var numRows=2;
+var idnum = 0;
+var numRows = 2;
 
-	for (var i = 0; i < 1; i++)
+var drumObject = [] ;
+var bassObject = [];
+var recordingTime;
+
+for (var i = 0; i < 1; i++)
+{
+	var drumRow = drumTable.insertRow(i);
+	var bassRow = bassTable.insertRow(i);
+	for (var j = 0; j < numRows; j++)
 	{
-		var drumRow = drumTable.insertRow(i);
-		var bassRow = bassTable.insertRow(i);
-		var leadRow = leadTable.insertRow(i);
-		for (var j = 0; j<numRows; j++)
-		{
-			var cell=drumRow.insertCell(j);
-			cell.addEventListener('click',drumHandle);
-			cell.id=idnum;
-			cell.setAttribute("class", "sound");
+		var cell = drumRow.insertCell(j);
+		cell.addEventListener('click', drumHandle);
+		cell.id = idnum;
+		cell.setAttribute("class", "sound");
 
-			cell=bassRow.insertCell(j);
-			cell.addEventListener('click',bassHandle);
-			cell.id=idnum+2;
-			cell.setAttribute("class", "sound");
-
-			cell=leadRow.insertCell(j);
-			cell.addEventListener('click',leadHandle);
-			cell.id=idnum+4;
-			idnum++;
-			cell.setAttribute("class", "sound");
-		}
+		cell = bassRow.insertCell(j);
+		cell.addEventListener('click', bassHandle);
+		cell.id = idnum + 2;
+		cell.setAttribute("class", "sound");
 	}
+}
 
-	var x = 0;
-	var timeFrame = 4800;
-	var rate=100;
-	timer.setAttribute("max",4800);
-	fun2();
-	setInterval(fun2,timeFrame);
-	setInterval(updateTime,rate);
-	var currentDrum=null;
-	var currentBass=null;
-	var currentLead=null;
-	function drumHandle()
+var x = 0;
+var timeFrame = 4800;
+var rate = 100;
+
+timer.setAttribute("max", 4800);
+fun2();
+setInterval(fun2, timeFrame);
+setInterval(updateTime, rate);
+
+var currentDrum = null;
+var currentBass = null;
+
+function drumHandle()
+{
+    // stopping a sound
+	if((this.className).indexOf("drumFlash") != -1)
 	{
-
-		if((this.className).indexOf("drumFlash")!=-1)
-		{
-			console.log("removed");
-			this.className=this.className.replace(/drumFlash/,'');
-			pauseit(this.id);
-			currentDrum=null;
-		}
-		else
-		{
-			console.log("added");
-			this.className+=" drumFlash";
-			if(currentDrum!=null)
-			{
-				console.log("Stopping already playing drums");
-				var old = document.getElementById(currentDrum);
-				old.setAttribute("class","");
-			}
-			checkAndPlay(this.id,currentDrum);
-			currentDrum=this.id;
-
-		}
+		this.className = "sound";
+		pauseit(this.id);
+		currentDrum = null;
+		drumObject[drumObject.length - 1].endTime = findTimeDifference();
 	}
-
-	function bassHandle()
+	else
 	{
-		if((this.className).indexOf("bassFlash")!=-1)
-		{
-			console.log("removed");
-			this.className=this.className.replace(/bassFlash/,'');
-			pauseit(this.id);
-			currentBass=null;
-		}
-		else
-		{
-			console.log("added");
-			this.className+=" bassFlash";
-			if(currentBass!=null)
-			{
-				console.log("Stopping already playing bass");
-				var old = document.getElementById(currentBass);
-				old.setAttribute("class","");
-			}
+		this.className += " drumFlash";
 
-			checkAndPlay(this.id,currentBass);
-			currentBass=this.id;
+		// update drum object
+		drumObject.push({
+			'track' : this.id,
+			'startTime' : findTimeDifference()
+		});
+
+		if(currentDrum != null)
+		{
+			var old = document.getElementById(currentDrum);
+			old.setAttribute("class", "sound");
+
+			// find last occurrence in array of this track and set the endTime
+			drumObject[findLastOccurence(drumObject, currentDrum)].endTime = findTimeDifference();
 
 		}
+
+		checkAndPlay(this.id, currentDrum);
+		currentDrum = this.id;
 	}
-	function leadHandle()
+}
+
+function bassHandle()
+{
+	if((this.className).indexOf("bassFlash")!=-1)
 	{
-		if((this.className).indexOf("leadFlash")!=-1)
+		this.className = "sound";
+		pauseit(this.id);
+		currentBass = null;
+		bassObject[bassObject.length - 1].endTime = findTimeDifference();
+	}
+	else
+	{
+		this.className += " bassFlash";
+
+		// update bass object
+		bassObject.push({
+			'track' : this.id,
+			'startTime' : findTimeDifference()
+		});
+
+		if(currentBass != null)
 		{
-			console.log("removed");
-			this.className=this.className.replace(/leadFlash/,'');
-		// pauseit(this.id);
-		currentLead=null;
+			var old = document.getElementById(currentBass);
+			old.setAttribute("class", "sound");
+
+			// find last occurrence in array of this track and set the endTime
+			bassObject[bassObject.length - 2].endTime = findTimeDifference();
 		}
-		else
+		checkAndPlay(this.id, currentBass);
+		currentBass = this.id;
+	}
+}
+
+function fun2()
+{
+	x = new Date();
+	timer.value=0;
+}
+
+function updateTime()
+{
+	
+	timer.value+=100;
+}
+
+function findTimeDifference()
+{
+	var d = new Date();
+	var diff = d - x;
+	var something = (timeFrame - diff) / 1000;
+	var actual = (d - recordingTime)/1000 + something;
+	return actual;
+}
+
+function checkAndPlay(noteID,oldNote)
+{
+	var d = new Date();
+	var diff = d - x;
+	setTimeout(function() {
+		play(noteID);
+		if(oldNote != null)
 		{
-			console.log("added");
-			this.className+=" leadFlash";
-			if(currentLead!=null)
-			{
-				console.log("Stopping already playing sound");
-				var old = document.getElementById(currentLead);
-				old.setAttribute("class","");
-			}
+			pauseit(oldNote);
+		}
+	}, timeFrame - diff);
+}
 
-			// checkAndPlay(this.id,currentLead);
-			currentLead=this.id;
+function startTimer()
+{
+	recordingTime = new Date();
+	drumObject = [];
+	bassObject = [];
+}
+
+function finishRecording()
+{
+	var finalObject = {};
+	finalObject.drums = drumObject;
+	finalObject.bass = bassObject;
+
+	var jsonString = JSON.stringify(finalObject);
+	
+	return jsonString;
+}
+
+function findLastOccurence(trackArray, trackId)
+{
+	for (var i = trackArray.length - 1; i >= 0; i--)
+	{
+		if(trackId == trackArray[i].track)
+		{
+			return i;
 		}
 	}
-	function fun2()
-	{
-		x = new Date();
-		timer.value=0;
-
-	}
-	function updateTime()
-	{
-		timer.value+=100;
-	}
-
-	function checkAndPlay(noteID,oldNote)
-	{
-		var d = new Date();
-		var diff = d-x;
-		console.log((timeFrame-diff)/1000);
-		setTimeout(function(){play(noteID); if(oldNote!=null){pauseit(oldNote);}},timeFrame-diff);
-		// play(noteID);
-	}
+	return -1;
+}

@@ -44,6 +44,40 @@ body
 	/*border: 1px solid grey;*/
 }
 
+.navbar-nav > li > a
+{
+	color: white !important;
+}
+
+/* Bootstrap navbar overrides */
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+	background-color: rgba(115, 106, 106, 0.45);
+}
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: white;
+  /*background-color: rgba(115, 106, 106, 0.45);*/
+  white-space: nowrap;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+	color: white;
+	text-decoration: none;
+	background-color: rgba(115, 106, 106, 0.45);
+}
+.navbar-nav > li > .dropdown-menu {
+  background: rgba(115, 106, 106, 0.45);;
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .soundArea
 {
 	display: inline;
@@ -115,8 +149,6 @@ a
 
 #selectionBox {
 	margin-top: 70px;
-	margin-left: 22%;
-	width: 50%;
 	height: 100px;
 	text-align: center;
 	display: inline-block;

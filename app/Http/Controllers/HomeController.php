@@ -66,7 +66,7 @@ class HomeController extends Controller
     }
     public function apiGetLibrary(Request $request)
     {
-        $sounds = \App\Sound::with('user')->paginate(10);
+        $sounds = \App\Sound::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
         $favourites = Auth::user()->favourites->pluck('soundId')->all();
 
@@ -113,5 +113,16 @@ class HomeController extends Controller
         return response()->json([
             'data' => 'Successfully liked'
         ], 200);
+    }
+
+    public function saveSound(Request $request)
+    {
+        $user = Auth::user();
+
+        $sound = new \App\Sound;
+        $sound->userId = $user->userId;
+        $sound->data = $request->jsonData;
+        $sound->save();
+
     }
 }

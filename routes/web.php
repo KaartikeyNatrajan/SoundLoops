@@ -10,20 +10,16 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('home', 'HomeController@index');
+Route::get('create', 'HomeController@index');
+Route::post('create', 'HomeController@saveSound');
 
 Route::get('favourites', 'HomeController@getFavourites');
 
 Route::get('my-sounds', 'HomeController@getUserSounds');
 
-Route::get('library', 'HomeController@getLibrary');
+Route::get('/', 'HomeController@getLibrary');
 
 Route::get('api/favourites', 'HomeController@apiGetFavourites');
 

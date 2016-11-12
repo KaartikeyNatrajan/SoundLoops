@@ -24,6 +24,20 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a href="{{ url('/my-sounds') }}">My Sounds</a>
+                </li>
+                <li>
+                    <a href="{{ url('/favourites') }}">Favourites</a>
+                </li>
+                <li>
+                    <a href="{{ url('/create') }}">Create</a>
+                </li>
+                <li>
+                    <a href="{{ url('/') }}">Library</a>
+                </li>
+
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">Login</a></li>
