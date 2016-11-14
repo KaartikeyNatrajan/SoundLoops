@@ -27,9 +27,19 @@
 		</div>
 
 		<div class="wrapper">
-			<button v-if="!recording" class="btn btn-lg" style="background-color:red" @click="toggle">Record</button>
-			<button v-else class="btn btn-lg" style="background-color:yellow" @click="toggle">Stop</button>
-			<button v-if="completed" class="btn btn-lg btn-success" @click="saveSound">Save</button>
+			<div style="padding:10px">
+				<button v-if="!recording" class="btn btn-lg" style="background-color:red" @click="toggle">Record</button>
+				<button v-else class="btn btn-lg" style="background-color:yellow" @click="toggle">Stop</button>
+			</div>
+			<div v-if="completed" class="col-md-4 col-md-offset-4">
+				<div class="input-group input-group-lg">
+				   <input type="text" v-model="trackTitle" class="form-control form-control-lg" placeholder="Enter track title" required>
+				   <span class="input-group-btn">
+				        <button class="btn btn-lg btn-success" @click="saveSound">Save</button>
+				   </span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 @endsection
@@ -40,11 +50,13 @@
 		var recorder = new Vue({
 		el: '#record',
 		data: {
+			trackTitle: null,
 			recording: false,
 			jsonData : null,
 			completed : false,
 			instrument : 0,
 			keymap : {
+				'Q' : 4,
 				'A' : 4,
 				'S' : 5,
 				'D' : 6,
@@ -73,13 +85,21 @@
 				{
 					this.jsonData = finishRecording();
 					this.completed = true;
+					document.body.removeEventListener("keydown", this.playKey);
+					document.body.removeEventListener("keyup", this.pauseKey);
 				}
 			},
 			saveSound: function() {
 				vm = this;
+				if(vm.trackTitle == null || vm.trackTitle == "")
+				{
+					alert("please enter a name for the track");
+					return;
+				}
 				this.$http.post('/create',{
 					'_token': Laravel.csrfToken,
-					'jsonData': vm.jsonData
+					'jsonData': vm.jsonData,
+					'title' : vm.trackTitle
 				}).then((response) => {
 					console.log(response);
 					alert("successfully saved");
@@ -105,6 +125,8 @@
 				{
 					play(this.keymap[char] + ( 13 * this.instrument ) );
 					this.alreadyPlaying.push(char);
+					var currentKey = document.getElementById("note" + (this.keymap[char] - 3));
+					currentKey.className += " keypress";
 				}
 				
 			},
@@ -114,6 +136,8 @@
 				var char = String.fromCharCode(key);
 				pauseit(this.keymap[char] + ( 13 * this.instrument ) );
 				this.alreadyPlaying.splice(this.alreadyPlaying.indexOf(char),1);
+				var currentKey = document.getElementById("note" + (this.keymap[char] - 3));
+				$(currentKey).removeClass("keypress");
 			}
 		}
 		

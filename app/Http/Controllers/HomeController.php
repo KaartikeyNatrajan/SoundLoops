@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         // Auth::login(\App\User::find(1));
-        $this->middleware('auth', ['except' => 'getLibrary']);
+        $this->middleware('auth');
     }
 
     /**
@@ -37,8 +37,13 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        $favourites = $user->favourites;
+        $favourites = $user->favourites()->orderBy("created_at", "desc")->with('user')->get();
+        foreach ($favourites as $favourite)
+        {
+            $favourite->hasLiked = true;
+        }
 
+        // dd($favourites);
         return response()->json([
             'data' => $favourites
         ]);
@@ -53,7 +58,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        $sounds = $user->sounds;
+        $sounds = $user->sounds()->orderBy('created_at', 'desc')->with('user')->get();
 
         return response()->json([
             'data' => $sounds
@@ -122,6 +127,7 @@ class HomeController extends Controller
         $sound = new \App\Sound;
         $sound->userId = $user->userId;
         $sound->data = $request->jsonData;
+        $sound->title = $request->title;
         $sound->save();
 
         return response()->json([

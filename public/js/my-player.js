@@ -19,20 +19,27 @@ Vue.component('my-player', {
 		playTrack: function () {
 			vm = this;
 			var dataToPlay = JSON.parse(vm.soundInfo.data);
-
 			if (vm.playing == false) {
 				this.playing = true;
-				// console.log(dataToPlay.bass.length);
+				var maxTime = 0;
 				var loopTime = 0;
 				for (var i = 0; i < dataToPlay.drums.length; i++) {
 					loopTime = Math.max(loopTime, dataToPlay.drums[i].endTime);
 					this.tracks.push(dataToPlay.drums[i].track);
+					if(loopTime > maxTime) {
+						maxTime = loopTime;
+					}
+
 				}
 				for (var i = 0; i < dataToPlay.bass.length; i++) {
 					loopTime = Math.max(loopTime, dataToPlay.bass[i].endTime);
 					this.tracks.push(dataToPlay.bass[i].track);
+					if(loopTime > maxTime) {
+						maxTime = loopTime;
+					}
 				}
 				console.log(loopTime);
+				console.log(maxTime);
 				for (var i = 0; i < dataToPlay.drums.length; i++) {
 					var t1 = setTimeout(play, dataToPlay.drums[i].startTime*1000, dataToPlay.drums[i].track);
 					var t2 = setTimeout(pauseit, dataToPlay.drums[i].endTime*1000, dataToPlay.drums[i].track);
@@ -44,6 +51,9 @@ Vue.component('my-player', {
 					this.timeouts.push(t1);
 				}
 
+				setTimeout(function() {
+					vm.playing = false;
+				}, maxTime * 1000);
 				console.log(this.timeouts);
 				// setInterval(function () {
 				// 	console.log("setInterval is being called");
@@ -73,7 +83,7 @@ Vue.component('my-player', {
 		},
 		toggleLike: function()
 		{
-			var id = 1;
+			var id = this.soundInfo.soundId;
 			vm = this;
 			this.$http.put('api/library/' + id, {'_token': Laravel.csrfToken })
 			.then((response) => {

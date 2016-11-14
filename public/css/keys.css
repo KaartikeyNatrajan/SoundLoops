@@ -1,7 +1,18 @@
-#note1, #note3, #note5, #note6, #note8, #note10, #note12 {
+.white-key {
   background-color: white;
+  color: black;
 }
-#note2, #note4, #note7, #note9, #note11 {
+.black-key {
   background-color: black;
   color: white;
+}
+@-webkit-keyframes bluePulse {
+	from { background-color: #337ab7; -webkit-box-shadow: 0 0 9px #333; }
+	50% { background-color: #1ec3ff; -webkit-box-shadow: 0 0 18px #1ec3ff; }
+	to { background-color: #337ab7; -webkit-box-shadow: 0 0 9px #333; }
+}
+.keypress {
+	-webkit-animation-name: bluePulse;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
 }

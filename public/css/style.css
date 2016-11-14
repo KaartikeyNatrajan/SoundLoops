@@ -5,8 +5,14 @@
 
 body
 {
-	background-image: url('../images/main.jpg');
+	background: url('../images/main.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 	color: white !important;
+	height: 100%;
+	width: 100%;
 }
 
 .navbar-brand
@@ -25,46 +31,85 @@ body
 	display: inline;
 	border-radius: 50%;
 	border: 2px solid white;
-	background: #084d72;
+	background: #2a2323;
 	height: 3em;
 	width: 3em;
 	outline: none;
+	margin: 5px;
+}
+
+.track-title
+{
+	padding: 5px 10px 5px 10px;
+	font-size: 2em;
+	position: absolute;
 }
 
 .player-window
 {
 	border : 1px solid white;
 	border-radius: 3px;
-	padding: 10px;
+	padding: 20px 20px 15px 20px;
 	margin: 10px;
+	overflow:hidden ;
+}
+
+.like-count
+{
+	margin-top: 5px;
+	font-size: 1.2em;
+	line-height: 1.1em;
+	padding: 5px;
 }
 
 .like-bar
 {
-	height: 22px;
 	background: none;
 	border-radius: 3px;
 }
 
 .likeButton
 {
-	height: 20px;
-	background-color: #084d72;
+	/*height: 20px;*/
+	/*background-color: #084d72;*/
 	border: none;
-	border-radius: 3px;
+	/*border-radius: 3px;*/
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+	padding: 7px 10px;
+	/*font-size: 18px;*/
+	/*line-height: 1.3333333;*/
+	border-radius: 6px;
+	margin-top: 5px;
 }
 
 @-webkit-keyframes bluePulse {
-	from { background-color: #084d72; -webkit-box-shadow: 0 0 9px #333; }
+	from { background-color: #337ab7; -webkit-box-shadow: 0 0 9px #333; }
 	50% { background-color: #1ec3ff; -webkit-box-shadow: 0 0 18px #1ec3ff; }
-	to { background-color: #084d72; -webkit-box-shadow: 0 0 9px #333; }
+	to { background-color: #337ab7; -webkit-box-shadow: 0 0 9px #333; }
 }
+/*
+#084d72
+*/
 
 .likeButton:hover
 {
 	-webkit-animation-name: bluePulse;
     -webkit-animation-duration: 3s;
     -webkit-animation-iteration-count: infinite;
+}
+
+.auth-box > *
+{
+	color: #504f55;
+}
+
+.play-sound
+{
+	left: 1px;
+	top: 2px;
+	color: red;
 }
 
 .navbar-nav > li > a
@@ -144,7 +189,7 @@ h1
 .header-brand
 {
 	font-size: 50px;
-	font-family: 'Jura',monospace;
+	font-family: 'Jura', monospace;
 	display: inline;
 	color: white;
 }
