@@ -59,7 +59,19 @@ class HomeController extends Controller
         $user = Auth::user();
 
         $sounds = $user->sounds()->orderBy('created_at', 'desc')->with('user')->get();
+        $favourites = Auth::user()->favourites->pluck('soundId')->all();
 
+        foreach ($sounds as &$sound)
+        {
+            if(array_search($sound->soundId, $favourites) !== false)
+            {
+                $sound->hasLiked = true;
+            }
+            else
+            {
+                $sound->hasLiked = false;
+            }
+        }
         return response()->json([
             'data' => $sounds
         ]);
