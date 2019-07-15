@@ -1,16 +1,14 @@
 var idnum = 0;
 var numRows = 2;
 
-var drumObject = [] ;
+var drumObject = [];
 var bassObject = [];
 var recordingTime;
 
-for (var i = 0; i < 1; i++)
-{
+for (var i = 0; i < 1; i++) {
 	var drumRow = drumTable.insertRow(i);
 	var bassRow = bassTable.insertRow(i);
-	for (var j = 0; j < numRows; j++)
-	{
+	for (var j = 0; j < numRows; j++) {
 		var cell = drumRow.insertCell(j);
 		cell.addEventListener('click', drumHandle);
 		cell.id = idnum;
@@ -37,34 +35,26 @@ setInterval(updateTime, rate);
 var currentDrum = null;
 var currentBass = null;
 
-function drumHandle()
-{
-    // stopping a sound
-	if((this.className).indexOf("drumFlash") != -1)
-	{
+function drumHandle() {
+	// stopping a sound
+	if ((this.className).indexOf("drumFlash") != -1) {
 		this.className = "sound";
 		pauseit(this.id);
 		currentDrum = null;
 		drumObject[drumObject.length - 1].endTime = findTimeDifference();
-	}
-	else
-	{
+	} else {
 		this.className += " drumFlash";
-
 		// update drum object
 		drumObject.push({
-			'track' : this.id,
-			'startTime' : findTimeDifference()
+			'track': this.id,
+			'startTime': findTimeDifference()
 		});
 
-		if(currentDrum != null)
-		{
+		if (currentDrum != null) {
 			var old = document.getElementById(currentDrum);
 			old.setAttribute("class", "sound");
-
 			// find last occurrence in array of this track and set the endTime
 			drumObject[findLastOccurence(drumObject, currentDrum)].endTime = findTimeDifference();
-
 		}
 
 		checkAndPlay(this.id, currentDrum);
@@ -72,27 +62,22 @@ function drumHandle()
 	}
 }
 
-function bassHandle()
-{
-	if((this.className).indexOf("bassFlash")!=-1)
-	{
+function bassHandle() {
+	if ((this.className).indexOf("bassFlash") != -1) {
 		this.className = "sound";
 		pauseit(this.id);
 		currentBass = null;
 		bassObject[bassObject.length - 1].endTime = findTimeDifference();
-	}
-	else
-	{
+	} else {
 		this.className += " bassFlash";
 
 		// update bass object
 		bassObject.push({
-			'track' : this.id,
-			'startTime' : findTimeDifference()
+			'track': this.id,
+			'startTime': findTimeDifference()
 		});
 
-		if(currentBass != null)
-		{
+		if (currentBass != null) {
 			var old = document.getElementById(currentBass);
 			old.setAttribute("class", "sound");
 
@@ -104,64 +89,54 @@ function bassHandle()
 	}
 }
 
-function fun2()
-{
+function fun2() {
 	x = new Date();
-	timer.value=0;
+	timer.value = 0;
 }
 
-function updateTime()
-{
-	
-	timer.value+=100;
+function updateTime() {
+
+	timer.value += 100;
 }
 
-function findTimeDifference()
-{
+function findTimeDifference() {
 	var d = new Date();
 	var diff = d - x;
 	var something = (timeFrame - diff) / 1000;
-	var actual = (d - recordingTime)/1000 + something;
+	var actual = (d - recordingTime) / 1000 + something;
 	return actual;
 }
 
-function checkAndPlay(noteID,oldNote)
-{
+function checkAndPlay(noteID, oldNote) {
 	var d = new Date();
 	var diff = d - x;
-	setTimeout(function() {
+	setTimeout(function () {
 		play(noteID);
-		if(oldNote != null)
-		{
+		if (oldNote != null) {
 			pauseit(oldNote);
 		}
 	}, timeFrame - diff);
 }
 
-function startTimer()
-{
+function startTimer() {
 	recordingTime = new Date();
 	drumObject = [];
 	bassObject = [];
 }
 
-function finishRecording()
-{
+function finishRecording() {
 	var finalObject = {};
 	finalObject.drums = drumObject;
 	finalObject.bass = bassObject;
 
 	var jsonString = JSON.stringify(finalObject);
-	
+
 	return jsonString;
 }
 
-function findLastOccurence(trackArray, trackId)
-{
-	for (var i = trackArray.length - 1; i >= 0; i--)
-	{
-		if(trackId == trackArray[i].track)
-		{
+function findLastOccurence(trackArray, trackId) {
+	for (var i = trackArray.length - 1; i >= 0; i--) {
+		if (trackId == trackArray[i].track) {
 			return i;
 		}
 	}

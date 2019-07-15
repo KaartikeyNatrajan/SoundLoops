@@ -14,7 +14,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // Auth::login(\App\User::find(1));
         $this->middleware('auth');
     }
 
@@ -43,7 +42,6 @@ class HomeController extends Controller
             $favourite->hasLiked = true;
         }
 
-        // dd($favourites);
         return response()->json([
             'data' => $favourites
         ]);
@@ -63,7 +61,7 @@ class HomeController extends Controller
 
         foreach ($sounds as &$sound)
         {
-            if(array_search($sound->soundId, $favourites) !== false)
+            if (array_search($sound->soundId, $favourites) !== false)
             {
                 $sound->hasLiked = true;
             }
@@ -89,7 +87,7 @@ class HomeController extends Controller
 
         foreach ($sounds as &$sound)
         {
-            if(array_search($sound->soundId, $favourites) !== false)
+            if (array_search($sound->soundId, $favourites) !== false)
             {
                 $sound->hasLiked = true;
             }
@@ -109,14 +107,14 @@ class HomeController extends Controller
         $user = Auth::user();
         $sound = \App\Sound::find($soundId);
 
-        if(is_null($sound))
+        if (is_null($sound))
         {
             return response()->json([
                 'data' => 'sound not found'
             ], 422);
         }
 
-        if($user->hasFavourited($soundId))
+        if ($user->hasFavourited($soundId))
         {
             $user->favourites()->detach($sound);
             $sound->decrementLikeCount();
@@ -145,6 +143,5 @@ class HomeController extends Controller
         return response()->json([
             'data' => 'Successfully saved'
         ], 200);
-
     }
 }
