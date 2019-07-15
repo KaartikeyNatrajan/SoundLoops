@@ -26,16 +26,15 @@
     </script>
 </head>
 <body>
-    
     @include('navbar')
     
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/jquery-3.1.1.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/vue.js"></script>
-    <script src="/js/vue-resources.js"></script>
+    <script src="/js/external-dependencies/jquery-3.1.1.js"></script>
+    <script src="/js/external-dependencies/bootstrap.js"></script>
+    <script src="/js/external-dependencies/vue.js"></script>
+    <script src="/js/external-dependencies/vue-resources.js"></script>
    
     @yield('scripts')
 

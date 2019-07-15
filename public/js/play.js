@@ -95,7 +95,6 @@ function fun2() {
 }
 
 function updateTime() {
-
 	timer.value += 100;
 }
 

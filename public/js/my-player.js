@@ -28,7 +28,6 @@ Vue.component('my-player', {
 					if (loopTime > maxTime) {
 						maxTime = loopTime;
 					}
-
 				}
 				for (var i = 0; i < dataToPlay.bass.length; i++) {
 					loopTime = Math.max(loopTime, dataToPlay.bass[i].endTime);

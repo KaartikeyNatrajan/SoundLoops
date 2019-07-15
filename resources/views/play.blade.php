@@ -44,7 +44,7 @@
 	</div>
 @endsection
 @section('scripts')
-	<script type="text/javascript" src="{{ asset('js/main2.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/play.js') }}"></script>
 	<script type="text/javascript">
 		var recorder = new Vue({
@@ -136,7 +136,7 @@
 		});
 
 		function noteClick(note) {
-			noteId = parseInt(note.id.match(/\d+/)[0]) + 3;
+			noteId = note + 3;
 			play(noteId);
 		}
 		document.body.addEventListener("keydown", recorder.playKey);

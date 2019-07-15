@@ -1,3 +1,8 @@
+/**
+This file is responsible for loading the wav sound files using the Web Audio API
+Also contains functions for starting and stopping audio
+*/
+
 function BufferLoader(context, urlList, callback) {
 	this.context = context;
 	this.urlList = urlList;
@@ -101,8 +106,12 @@ function finishedLoading(bufferList) {
 }
 function play(noteId) {
 	var index = parseInt(noteId);
+	var gainValue = 1;
+	if (index > 3) {
+		gainValue = 0.4;
+	}
 	if (source[index].gain.gain.value == 0) {
-		source[index].gain.gain.value = 1;
+		source[index].gain.gain.value = gainValue;
 		return;
 	} else {
 		source[index].noteOn;
@@ -115,5 +124,4 @@ function pauseit(noteId) {
 
 function stopAll() {
 	source[0].stop();
-	console.log();
 }

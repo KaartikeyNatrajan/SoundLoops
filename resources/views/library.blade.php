@@ -15,10 +15,9 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{ asset('js/main2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/my-player.js') }}"></script>
 <script type="text/javascript">
-
 	var app = new Vue({
 		el: '#app',
 		data: {
@@ -28,7 +27,6 @@
 		created: function() {
 			vm = this;
 			this.$http.get('api/library').then((response) => {
-				console.log(response.body.data);
 				vm.sounds = response.body.data.data;
 			});
 		}

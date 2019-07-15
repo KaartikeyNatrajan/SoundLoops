@@ -16,29 +16,21 @@
 @section('scripts')
 
 <script type="text/javascript" src="{{ asset('js/my-player.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/main2.js') }}"></script>
-
-	<script type="text/javascript">
-		
-		// Vue.component('my-player', {
-		// 	template: '#player',
-		// 	props: ['soundInfo'],
-		// });
-
-		var app = new Vue({
-			el: '#app',
-			data: {
-				message: 'Favourites',
-				sounds : []
-			},
-			created: function() {
-				vm = this;
-				this.$http.get('/api/favourites').then((response) => {
-					vm.sounds = response.body.data;
-				});
-			}
-		});
-
-	</script>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Favourites',
+			sounds : []
+		},
+		created: function() {
+			vm = this;
+			this.$http.get('/api/favourites').then((response) => {
+				vm.sounds = response.body.data;
+			});
+		}
+	});
+</script>
 
 @endsection
